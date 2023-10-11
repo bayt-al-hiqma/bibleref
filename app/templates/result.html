@@ -1,21 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Bible Verse Result</title>
+    <meta charset="UTF-8">
+    <title>Bible Verse Results</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            background-image: url('https://www.transparenttextures.com/patterns/paper.png');
+            font-family: 'Georgia', serif;
+            color: #3e2723;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #1b5e20;
+        }
+        .verse-container {
+            background-color: rgba(255, 248, 220, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 50%;
         }
         .verse {
-            margin: 20px;
-            font-size: 18px;
+            font-size: 1.2em;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
-    <h1>Here is the Bible Verse:</h1>
-    <div class="verse">
-        {{ bible_verse|safe }}
-    </div>
+    <h1>Bible Verse Results</h1>
+    {% for bible_id, verse in verse_data.items() %}
+        <div class="verse-container">
+            <h2>Bible ID: {{ bible_id }}</h2>
+            <p class="verse">{{ verse|safe }}</p>
+        </div>
+    {% endfor %}
 </body>
 </html>

@@ -2,21 +2,78 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Bible Verse Lookup</title>
+    <title>Search Bible Verse</title>
+    <style>
+        body {
+            background-image: url('https://www.transparenttextures.com/patterns/paper.png');
+            font-family: 'Georgia', serif;
+            color: #3e2723;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #1b5e20;
+        }
+        form {
+            background-color: rgba(255, 248, 220, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: auto;
+            width: 50%;
+        }
+        label, select, input {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        input[type="submit"] {
+            background-color: #1b5e20;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function updateBooks() {
+            const selectedBibleId = document.getElementById("bible_id").value;
+            const availableBooks = JSON.parse(document.getElementById("available_books").textContent);
+            const bookDropdown = document.getElementById("book");
+            bookDropdown.innerHTML = "";
+            for (const book of availableBooks[selectedBibleId]) {
+                const option = document.createElement("option");
+                option.value = book;
+                option.text = book;
+                bookDropdown.add(option);
+            }
+        }
+    </script>
 </head>
-<body>
-    <h1>Find a Bible Verse</h1>
-    <form method="post" action="/">
+<body onload="updateBooks()">
+    <h1>Search for a Bible Verse</h1>
+    <form action="/" method="post">
+        <label for="bible_id">Bible Version:</label>
+        <select name="bible_id" id="bible_id" onchange="updateBooks()">
+            {% for bible_id in available_books.keys() %}
+                <option value="{{ bible_id }}">{{ bible_id }}</option>
+            {% endfor %}
+        </select>
+        <br>
         <label for="book">Book:</label>
-        <input type="text" id="book" name="book" placeholder="Book" required>
+        <select name="book" id="book">
+            <!-- This will be populated dynamically -->
+        </select>
         <br>
         <label for="chapter">Chapter:</label>
-        <input type="number" id="chapter" name="chapter" placeholder="Chapter" required>
+        <input type="number" name="chapter" id="chapter" min="1">
         <br>
         <label for="verse">Verse:</label>
-        <input type="number" id="verse" name="verse" placeholder="Verse" required>
+        <input type="number" name="verse" id="verse" min="1">
         <br>
-        <input type="submit" value="Find Verse">
+        <input type="submit" value="Search">
     </form>
+    <div id="available_books" style="display:none;">{{ available_books | tojson }}</div>
 </body>
 </html>
