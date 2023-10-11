@@ -1,24 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Bible Verse Fetcher</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        form {
-            margin: 20px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>Bible Verse Lookup</title>
 </head>
 <body>
-    <h1>Fetch a Bible Verse</h1>
-    <form action="/" method="post">
+    <h1>Find a Bible Verse</h1>
+    <form method="post" action="/">
+        <label for="book">Book:</label>
+        <input type="text" id="book" name="book" placeholder="Book" required>
+        <br>
         <label for="chapter">Chapter:</label>
-        <input type="text" id="chapter" name="chapter" required>
+        <input type="number" id="chapter" name="chapter" placeholder="Chapter" required>
+        <br>
         <label for="verse">Verse:</label>
-        <input type="text" id="verse" name="verse" required>
-        <input type="submit" value="Fetch Verse">
+        <input type="number" id="verse" name="verse" placeholder="Verse" required>
+        <br>
+        <input type="submit" value="Find Verse">
     </form>
 </body>
 </html>
